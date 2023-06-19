@@ -15,6 +15,8 @@ class Todo(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     #girdi içeriğini kaydet
     content = db.Column(db.String(200), nullable=False)
+    #tamamlananlar 
+    completed =db.Column(db.Integer, default=0) 
     # oluşturulma tarini al
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -22,7 +24,12 @@ class Todo(db.Model):
     def __repr__(self):
         return '<Task %r>' % self.id
 
-
+'''
+# used to create db at first
+with app.app_context():
+    # Create the database tables
+    db.create_all()
+'''
 @app.route('/')
 def index():
     return render_template('index.html')
