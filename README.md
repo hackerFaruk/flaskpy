@@ -9,11 +9,11 @@ python3
 flask 
 flask-sqlalchemy
 
-you can 
+to get those you can 
 >pip3 install flask flask-sqlalchemy 
-to get those 
 
 
+inside project file it will launch a local server to display applicaiton
 to run application use 
 >python3 app.py 
-inside project file it will launch a local server to display applicaiton
+
