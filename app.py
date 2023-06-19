@@ -58,6 +58,7 @@ def index():
 def delete(id):
     task_to_delete = Todo.query.get_or_404(id)
 
+    #hata yakalama için try
     try:
         db.session.delete(task_to_delete)
         db.session.commit()
@@ -66,10 +67,25 @@ def delete(id):
         return 'There was a problem deleting that task'
 
 
+# görev güncelleme
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    task = Todo.query.get_or_404(id)
+
+    if request.method == 'POST':
+        task.content = request.form['content']
+
+        try:
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'There was an issue updating your task'
+
+    else:
+        return render_template('update.html', task=task)
 
 
 
-    return render_template('index.html')
 
 
 
