@@ -16,6 +16,11 @@ class Todo(db.Model):
     # oluşturulma tarini al
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
+    #return a string when element is created 
+    def __repr__(self):
+        return '<Task %r>' % self.id
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
