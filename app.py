@@ -34,6 +34,7 @@ with app.app_context():
 # routeun kabul ettiğği methodlara db veri alma atmayı ekler (index.htmlde mevcut ) 
 @app.route('/', methods=['POST','GET'])
 def index():
+    # task oluşturma
     # requestleri işleme
     if request.method == 'POST':
         task_content = request.form['content']
@@ -52,7 +53,17 @@ def index():
         tasks = Todo.query.order_by(Todo.date_created).all()
         return render_template('index.html', tasks=tasks)
 
+#task silmek 
+@app.route('/delete/<int:id>')
+def delete(id):
+    task_to_delete = Todo.query.get_or_404(id)
 
+    try:
+        db.session.delete(task_to_delete)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return 'There was a problem deleting that task'
 
 
 
